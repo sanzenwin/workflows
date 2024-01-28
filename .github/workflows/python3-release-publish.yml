@@ -1,0 +1,11 @@
+name: ~python3-release publish
+on:
+  workflow_call:
+
+jobs:
+  release:
+    uses: ./.github/workflows/release.yml
+    secrets: inherit
+  publish:
+    uses: ./.github/workflows/python3-publish.yml
+    secrets: inherit

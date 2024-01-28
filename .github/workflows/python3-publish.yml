@@ -1,0 +1,22 @@
+name: ~python3 publish
+on:
+  workflow_call:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python 3
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3
+    - uses: pdm-project/setup-pdm@v3
+    - name: Publish to PyPI
+      run: |
+        pip install --upgrade pip
+        pip install --upgrade setuptools wheel twine
+        pdm build
+        export TWINE_USERNAME=__token__
+        export TWINE_PASSWORD=${{ secrets.PYPI_TOKEN }}
+        twine upload dist/*.whl
