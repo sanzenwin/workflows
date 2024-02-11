@@ -4,12 +4,12 @@ on:
 
 jobs:
   release:
-    uses: sanzenwin/workflows/.gitea/workflows/release.yml
+    uses: sanzenwin/workflows/.gitea/workflows/release.yml@main
     permissions:
       contents: write
     secrets: inherit
   publish:
-    uses: sanzenwin/workflows/.github/workflows/npm-publish.yml
+    uses: sanzenwin/workflows/.github/workflows/npm-publish.yml@main
     secrets: inherit
     with:
       registry: $GITHUB_SERVER_URL/api/packages/$GITHUB_ACTOR/npm
