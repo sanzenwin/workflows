@@ -1,0 +1,26 @@
+name: ~npm publish
+on:
+  workflow_call:
+    inputs:
+      registry:
+        required: false
+        type: string
+      scope:
+        required: false
+        type: string
+    secrets:
+      token:
+        required: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v3
+      with:
+        registry-url: ${{ inputs.registry || "https://npmjs.com/package" }}
+        scope: @${{ inputs.scope || env.GITHUB_ACTOR }}
+    - run: npm ci
+    - run: npm publish
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.token || secrets.GITHUB_TOKEN }}

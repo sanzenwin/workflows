@@ -1,0 +1,15 @@
+name: ~npm release publish
+on:
+  workflow_call:
+
+jobs:
+  release:
+    uses: ./.gitea/workflows/release.yml
+    permissions:
+      contents: write
+    secrets: inherit
+  publish:
+    uses: ./.github/workflows/npm-publish.yml
+    secrets: inherit
+    with:
+      registry: $GITHUB_SERVER_URL/api/packages/$GITHUB_ACTOR/npm
