@@ -19,7 +19,7 @@ jobs:
       with:
         python-version: 3
     - uses: pdm-project/setup-pdm@v3
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v3
     - run: pdm build
     - uses: pypa/gh-action-pypi-publish@release/v1
       with:
