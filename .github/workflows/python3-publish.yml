@@ -25,4 +25,4 @@ jobs:
       with:
         repository-url: ${{ inputs.registry || "https://upload.pypi.org/legacy/" }}
         user: ${{ inputs.user || "__token__" }}
-        password: ${{ secrets.token || secrets.GITHUB_TOKEN }}
+        password: ${{ secrets.token || secrets.PYPI_TOKEN }}
