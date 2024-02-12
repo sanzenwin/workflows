@@ -10,7 +10,7 @@ on:
         type: string
     secrets:
       token:
-        required: true
+        required: false
 jobs:
   publish:
     runs-on: ubuntu-latest
