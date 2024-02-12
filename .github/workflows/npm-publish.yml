@@ -20,9 +20,11 @@ jobs:
       with:
         registry-url: ${{ inputs.registry || 'https://npmjs.com/package' }}
         scope: "@${{ inputs.scope || env.GITHUB_ACTOR }}"
-    - run: npm install -g pnpm
-    - run: python3 -m pip install deknp
-    - run: deknp install
-    - run: npm publish
+    - run: |-
+        set -e
+        npm install -g pnpm
+        python3 -m pip install deknp
+        deknp install
+        npm publish
       env:
         NODE_AUTH_TOKEN: ${{ secrets.token || secrets.NPM_TOKEN }}
