@@ -13,3 +13,4 @@ jobs:
     secrets: inherit
     with:
       registry: $GITHUB_SERVER_URL/api/packages/$GITHUB_ACTOR/npm
+      password: ${{ secrets.GITHUB_TOKEN }}

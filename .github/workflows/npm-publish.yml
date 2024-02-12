@@ -25,4 +25,4 @@ jobs:
     - run: deknp install
     - run: npm publish
       env:
-        NODE_AUTH_TOKEN: ${{ secrets.token || secrets.GITHUB_TOKEN }}
+        NODE_AUTH_TOKEN: ${{ secrets.token || secrets.NPM_TOKEN }}
