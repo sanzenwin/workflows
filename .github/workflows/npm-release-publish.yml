@@ -9,5 +9,6 @@ jobs:
       contents: write
     secrets: inherit
   publish:
+    needs: release
     uses: sanzenwin/workflows/.github/workflows/npm-publish.yml@main
     secrets: inherit
