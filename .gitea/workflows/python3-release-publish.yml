@@ -9,8 +9,8 @@ jobs:
       contents: write
     secrets: inherit
   publish:
-    uses: sanzenwin/workflows/.github/workflows/python3-publish.yml@main
+    uses: sanzenwin/workflows/.gitea/workflows/python3-publish.yml@main
     secrets: inherit
     with:
       registry: $GITHUB_SERVER_URL/api/packages/$GITHUB_ACTOR/pypi/simple
-      password: ${{ secrets.GITHUB_TOKEN }}
+      token: ${{ secrets.GITHUB_TOKEN }}
