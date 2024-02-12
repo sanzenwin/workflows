@@ -19,7 +19,7 @@ jobs:
     - uses: actions/setup-node@v3
       with:
         registry-url: ${{ inputs.registry || "https://npmjs.com/package" }}
-        scope: @${{ inputs.scope || env.GITHUB_ACTOR }}
+        scope: "@${{ inputs.scope || env.GITHUB_ACTOR }}"
     - run: npm ci
     - run: npm publish
       env:
