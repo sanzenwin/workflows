@@ -9,6 +9,7 @@ jobs:
       contents: write
     secrets: inherit
   publish:
+    needs: release
     uses: sanzenwin/workflows/.gitea/workflows/python3-publish.yml@main
     secrets: inherit
     with:
