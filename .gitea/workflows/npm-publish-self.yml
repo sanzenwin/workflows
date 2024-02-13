@@ -1,7 +1,13 @@
 name: ~npm publish
 on:
   workflow_call:
-
+    inputs:
+      scope:
+        required: true
+        type: string
+    secrets:
+      token:
+        required: true
 jobs:
   publish-self-abc:
     runs-on: ubuntu-latest
@@ -9,6 +15,6 @@ jobs:
     - uses: actions/checkout@v3
     - run: |-
         deknp install
-        sudo npm config set @${{ vars.PACKAGE_NPM_SCOPE }}:registry=$GITHUB_SERVER_URL/api/packages/${{ vars.PACKAGE_NPM_SCOPE }}/npm/
-        sudo npm config set -- "//$(echo $GITHUB_SERVER_URL | sed 's/^http\(\|s\):\/\///g')/api/packages/${{ vars.PACKAGE_NPM_SCOPE }}/npm/:_authToken" "${{ secrets.GLOBAL_PACKAGE_TOKEN }}"
+        sudo npm config set @${{ inputs.scope }}:registry=$GITHUB_SERVER_URL/api/packages/${{ inputs.scope }}/npm/
+        sudo npm config set -- "//$(echo $GITHUB_SERVER_URL | sed 's/^http\(\|s\):\/\///g')/api/packages/${{ inputs.scope }}/npm/:_authToken" "${{ secrets.token }}"
         sudo npm publish
