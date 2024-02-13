@@ -1,0 +1,19 @@
+name: ~python3 publish
+on:
+  workflow_call:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/setup-python@v4
+      with:
+        python-version: 3
+    - uses: actions/setup-pdm@v3
+    - uses: actions/checkout@v3
+    - run: pdm build
+    - uses: actions/gh-action-pypi-publish@release/v1
+      with:
+        repository-url: ${{ env.GITHUB_SERVER_URL }}/api/packages/${{ vars.PACKAGE_PYPI_SCOPE }}/pypi/
+        user: ${{ env.GITHUB_ACTOR }}
+        password: ${{ secrets.GLOBAL_PACKAGE_TOKEN }}

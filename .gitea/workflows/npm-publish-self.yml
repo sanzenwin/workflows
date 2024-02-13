@@ -1,0 +1,14 @@
+name: ~npm publish
+on:
+  workflow_call:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - run: |-
+        deknp install
+        sudo npm config set @${{ vars.PACKAGE_NPM_SCOPE }}:registry=$GITHUB_SERVER_URL/api/packages/${{ vars.PACKAGE_NPM_SCOPE }}/npm/
+        sudo npm config set -- "//$(echo $GITHUB_SERVER_URL | sed 's/^http\(\|s\):\/\///g')/api/packages/${{ vars.PACKAGE_NPM_SCOPE }}/npm/:_authToken" "${{ secrets.GLOBAL_PACKAGE_TOKEN }}"
+        sudo npm publish
