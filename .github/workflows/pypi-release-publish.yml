@@ -10,5 +10,5 @@ jobs:
     secrets: inherit
   publish:
     needs: release
-    uses: sanzenwin/workflows/.github/workflows/python3-publish.yml@main
+    uses: sanzenwin/workflows/.github/workflows/pypi-publish.yml@main
     secrets: inherit
