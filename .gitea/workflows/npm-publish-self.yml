@@ -5,9 +5,9 @@ on:
       scope:
         required: true
         type: string
-    secrets:
       token:
         required: true
+        type: string
 jobs:
   publish-self-abc:
     runs-on: ubuntu-latest
@@ -16,5 +16,5 @@ jobs:
     - run: |-
         deknp install
         sudo npm config set @${{ inputs.scope }}:registry=$GITHUB_SERVER_URL/api/packages/${{ inputs.scope }}/npm/
-        sudo npm config set -- "//$(echo $GITHUB_SERVER_URL | sed 's/^http\(\|s\):\/\///g')/api/packages/${{ inputs.scope }}/npm/:_authToken" "${{ secrets.token }}"
+        sudo npm config set -- "//$(echo $GITHUB_SERVER_URL | sed 's/^http\(\|s\):\/\///g')/api/packages/${{ inputs.scope }}/npm/:_authToken" "${{ inputs.token }}"
         sudo npm publish
