@@ -9,7 +9,7 @@ on:
         required: true
         type: string
 jobs:
-  publish-self-abc:
+  publish-self:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/setup-python@v4
