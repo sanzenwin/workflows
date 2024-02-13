@@ -3,7 +3,7 @@ on:
   workflow_call:
 
 jobs:
-  publish:
+  publish-self-abc:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/setup-python@v4
