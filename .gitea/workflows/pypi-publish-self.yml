@@ -12,10 +12,9 @@ jobs:
   publish-self:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - run: pdm build
-    - uses: actions/gh-action-pypi-publish@release/v1
-      with:
-        repository-url: ${{ env.GITHUB_SERVER_URL }}/api/packages/${{ inputs.scope }}/pypi/
-        user: ${{ env.GITHUB_ACTOR }}
-        password: ${{ inputs.token }}
+      - uses: actions/checkout@v3
+      - run: pdm build
+      - run: twine upload dist/*.whl --repository-url ${{ env.GITHUB_SERVER_URL }}/api/packages/${{ inputs.scope }}/pypi/
+        env:
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ inputs.token }}
