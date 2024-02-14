@@ -19,7 +19,7 @@ jobs:
           pdm config pypi.${{ inputs.scope }}.username "${{ env.GITHUB_ACTOR }}"
           pdm config pypi.${{ inputs.scope }}.password "${{ inputs.token }}"
       - run: pdm build
-      - run: twine upload dist/*.whl --repository-url ${{ env.GITHUB_SERVER_URL }}/api/packages/${{ inputs.scope }}/pypi/
+      - run: twine upload dist/*.whl --verbose --repository-url ${{ env.GITHUB_SERVER_URL }}/api/packages/${{ inputs.scope }}/pypi/
         env:
           TWINE_USERNAME: ${{ env.GITHUB_ACTOR }}
           TWINE_PASSWORD: ${{ inputs.token }}
