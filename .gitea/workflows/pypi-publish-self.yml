@@ -12,10 +12,6 @@ jobs:
   publish-self:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/setup-python@v4
-      with:
-        python-version: 3
-    - uses: actions/setup-pdm@v3
     - uses: actions/checkout@v3
     - run: pdm build
     - uses: actions/gh-action-pypi-publish@release/v1
