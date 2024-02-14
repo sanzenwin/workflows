@@ -16,5 +16,5 @@ jobs:
       - run: pdm build
       - run: twine upload dist/*.whl --repository-url ${{ env.GITHUB_SERVER_URL }}/api/packages/${{ inputs.scope }}/pypi/
         env:
-          TWINE_USERNAME: __token__
+          TWINE_USERNAME: ${{ env.GITHUB_ACTOR }}
           TWINE_PASSWORD: ${{ inputs.token }}
