@@ -14,7 +14,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - run: |-
-        sudo deknp install
-        sudo npm config set @${{ inputs.scope }}:registry=$GITHUB_SERVER_URL/api/packages/${{ inputs.scope }}/npm/
-        sudo npm config set -- "//$(echo $GITHUB_SERVER_URL | sed 's/^http\(\|s\):\/\///g')/api/packages/${{ inputs.scope }}/npm/:_authToken" "${{ inputs.token }}"
-        sudo npm publish
+        npm config set @${{ inputs.scope }}:registry=$GITHUB_SERVER_URL/api/packages/${{ inputs.scope }}/npm/
+        npm config set -- "//$(echo $GITHUB_SERVER_URL | sed 's/^http\(\|s\):\/\///g')/api/packages/${{ inputs.scope }}/npm/:_authToken" "${{ inputs.token }}"
+        deknp install
+        npm publish

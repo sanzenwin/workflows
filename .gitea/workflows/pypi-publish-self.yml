@@ -13,6 +13,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - run: |-
+          pdm config pypi.${{ inputs.scope }}.url "${{ env.GITHUB_SERVER_URL }}/api/packages/${{ inputs.scope }}/pypi/"
+          pdm config pypi.${{ inputs.scope }}.verify_ssl true
+          pdm config pypi.${{ inputs.scope }}.username "${{ env.GITHUB_ACTOR }}"
+          pdm config pypi.${{ inputs.scope }}.password "${{ inputs.token }}"
       - run: pdm build
       - run: twine upload dist/*.whl --repository-url ${{ env.GITHUB_SERVER_URL }}/api/packages/${{ inputs.scope }}/pypi/
         env:
