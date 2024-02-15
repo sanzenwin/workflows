@@ -16,5 +16,5 @@ jobs:
     - run: |-
         npm config set @${{ inputs.scope }}:registry=$GITHUB_SERVER_URL/api/packages/${{ inputs.scope }}/npm/
         npm config set -- "//$(echo $GITHUB_SERVER_URL | sed 's/^http\(\|s\):\/\///g')/api/packages/${{ inputs.scope }}/npm/:_authToken" "${{ inputs.token }}"
-        deknp install
-        pnpm publish --no-git-checks
+        deknp sure
+        npm publish
