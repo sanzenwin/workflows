@@ -14,10 +14,10 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: |-
-          pdm config pypi.${{ inputs.scope }}.url "${{ env.GITHUB_SERVER_URL }}/api/packages/${{ inputs.scope }}/pypi/"
-          pdm config pypi.${{ inputs.scope }}.verify_ssl true
-          pdm config pypi.${{ inputs.scope }}.username "${{ env.GITHUB_ACTOR }}"
-          pdm config pypi.${{ inputs.scope }}.password "${{ inputs.token }}"
+          pdm config pypi.a__${{ inputs.scope }}.url "${{ env.GITHUB_SERVER_URL }}/api/packages/${{ inputs.scope }}/pypi/"
+          pdm config pypi.a__${{ inputs.scope }}.verify_ssl true
+          pdm config pypi.a__${{ inputs.scope }}.username "${{ env.GITHUB_ACTOR }}"
+          pdm config pypi.a__${{ inputs.scope }}.password "${{ inputs.token }}"
       - run: pdm build
       - run: twine upload dist/*.whl --verbose --repository-url ${{ env.GITHUB_SERVER_URL }}/api/packages/${{ inputs.scope }}/pypi/
         env:
