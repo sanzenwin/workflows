@@ -1,0 +1,23 @@
+name: ~helm publish self
+on:
+  workflow_call:
+    inputs:
+      scope:
+        required: true
+        type: string
+      token:
+        required: true
+        type: string
+      path:
+        required: true
+        type: string
+jobs:
+  publish-self:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: |-
+          helm dependency update ${{ inputs.path }}
+          helm package ${{ inputs.path }}
+          for filename in ./*.tgz; do break; done; python3 -m pip install $filename;
+          curl --user ${{ env.GITHUB_ACTOR }}:${{ inputs.token }} -X POST --upload-file ./$filename ${{ env.GITHUB_SERVER_URL }}/api/packages/${{ inputs.scope }}/helm/api/charts
