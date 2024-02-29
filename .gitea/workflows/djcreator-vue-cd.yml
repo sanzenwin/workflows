@@ -1,0 +1,27 @@
+name: ~cd
+on:
+  workflow_call:
+    inputs:
+      scope:
+        required: true
+        type: string
+      token:
+        required: true
+        type: string
+      project:
+        required: true
+        type: string
+jobs:
+  publish-self:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          repository: deploy/djcreator-vue
+          token: ${{ inputs.token }}
+          path: deploy
+      - run: bash ./deploy/shell/cd.sh
+        env:
+          INPUTS_SCOPE: ${{ inputs.scope }}
+          INPUTS_TOKEN: ${{ inputs.token }}
+          INPUTS_PROJECT: ${{ inputs.project }}

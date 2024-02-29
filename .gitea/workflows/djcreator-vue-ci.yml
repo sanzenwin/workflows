@@ -1,0 +1,30 @@
+name: ~ci
+on:
+  workflow_call:
+    inputs:
+      scope:
+        required: true
+        type: string
+      token:
+        required: true
+        type: string
+      env:
+        required: true
+        type: string
+jobs:
+  publish-self:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          repository: deploy/djcreator-vue
+          token: ${{ inputs.token }}
+          path: deploy
+      - uses: actions/checkout@v3
+        with:
+          path: code
+      - run: bash ./deploy/shell/ci.sh
+        env:
+          INPUTS_SCOPE: ${{ inputs.scope }}
+          INPUTS_TOKEN: ${{ inputs.token }}
+          INPUTS_ENV: ${{ inputs.env }}
