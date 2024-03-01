@@ -8,7 +8,7 @@ on:
       token:
         required: true
         type: string
-      shortcut:
+      secrets_shortcut:
         required: true
         type: string
 jobs:
@@ -27,4 +27,4 @@ jobs:
         env:
           INPUTS__SCOPE: ${{ inputs.scope }}
           INPUTS__TOKEN: ${{ inputs.token }}
-          INPUTS__SECRETS_SHORTCUT: ${{ inputs.shortcut }}
+          INPUTS__SECRETS_SHORTCUT: ${{ inputs.secrets_shortcut }}
