@@ -11,6 +11,9 @@ on:
       env:
         required: true
         type: string
+      shortcut:
+        required: true
+        type: string
 jobs:
   ci:
     runs-on: ubuntu-latest
@@ -25,6 +28,7 @@ jobs:
           path: code
       - run: bash ./deploy/shell/ci.sh
         env:
-          INPUTS_SCOPE: ${{ inputs.scope }}
-          INPUTS_TOKEN: ${{ inputs.token }}
-          INPUTS_ENV: ${{ inputs.env }}
+          INPUTS__SCOPE: ${{ inputs.scope }}
+          INPUTS__TOKEN: ${{ inputs.token }}
+          INPUTS__ENV: ${{ inputs.env }}
+          INPUTS__SECRETS_SHORTCUT: ${{ inputs.shortcut }}
