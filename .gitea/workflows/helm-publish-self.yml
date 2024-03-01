@@ -17,6 +17,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: |-
+          set -e
           helm dependency update ${{ inputs.path }}
           helm package ${{ inputs.path }}
           for filename in ./*.tgz; do break; done;
