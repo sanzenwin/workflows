@@ -21,4 +21,4 @@ jobs:
           helm dependency update ${{ inputs.path }}
           helm package ${{ inputs.path }}
           for filename in ./*.tgz; do break; done;
-          curl --user ${{ env.GITHUB_ACTOR }}:${{ inputs.token }} -X POST --upload-file ./$filename $GITHUB_SERVER_URL/api/packages/${{ inputs.scope }}/helm/api/charts
+          curl -f --user ${{ env.GITHUB_ACTOR }}:${{ inputs.token }} -X POST --upload-file ./$filename $GITHUB_SERVER_URL/api/packages/${{ inputs.scope }}/helm/api/charts
