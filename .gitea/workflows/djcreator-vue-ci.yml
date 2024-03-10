@@ -8,9 +8,6 @@ on:
       token:
         required: true
         type: string
-      secrets_shortcut:
-        required: true
-        type: string
 jobs:
   ci:
     runs-on: ubuntu-latest
@@ -27,4 +24,3 @@ jobs:
         env:
           INPUTS__SCOPE: ${{ inputs.scope }}
           INPUTS__TOKEN: ${{ inputs.token }}
-          INPUTS__SECRETS_SHORTCUT: ${{ inputs.secrets_shortcut }}

@@ -8,10 +8,7 @@ on:
       token:
         required: true
         type: string
-      project:
-        required: true
-        type: string
-      secrets_shortcut:
+      environment:
         required: true
         type: string
 jobs:
@@ -27,5 +24,4 @@ jobs:
         env:
           INPUTS__SCOPE: ${{ inputs.scope }}
           INPUTS__TOKEN: ${{ inputs.token }}
-          INPUTS__PROJECT: ${{ inputs.project }}
-          INPUTS__SECRETS_SHORTCUT: ${{ inputs.secrets_shortcut }}
+          INPUTS__ENVIRONMENT: ${{ inputs.environment }}
