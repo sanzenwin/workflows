@@ -22,7 +22,8 @@ jobs:
       - run: |-
           set -e
           if test -f ${{ inputs.prepare }} ;then bash ${{ inputs.prepare }} "${{ inputs.scope }}" "${{ inputs.token }}" ;fi
-          helm dependency update ${{ inputs.path }}
-          helm package ${{ inputs.path }}
-          for filename in ./*.tgz; do break; done;
-          curl -f --user ${{ env.GITHUB_ACTOR }}:${{ inputs.token }} -X POST --upload-file ./$filename $GITHUB_SERVER_URL/api/packages/${{ inputs.scope }}/helm/api/charts
+          DOMAIN=$(echo "$GITHUB_SERVER_URL" | sed 's/^http\(\|s\):\/\///g')
+          dekartifacts image login "$DOMAIN" "$GITHUB_ACTOR" "${{ inputs.token }}"    
+          TARGET=$(cat ${{ inputs.path }}/dest.docker)
+          docker build -t $TARGET ${{ inputs.path }}
+          docker push $TARGET
