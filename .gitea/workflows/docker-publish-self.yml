@@ -25,5 +25,5 @@ jobs:
           DOMAIN=$(echo "$GITHUB_SERVER_URL" | sed 's/^http\(\|s\):\/\///g')
           dekartifacts image login "$DOMAIN" "$GITHUB_ACTOR" "${{ inputs.token }}"    
           TARGET=$(cat ${{ inputs.path }}/dest.docker)
-          docker build -t $TARGET ${{ inputs.path }}
+          docker build --no-cache -t $TARGET ${{ inputs.path }}
           docker push $TARGET
