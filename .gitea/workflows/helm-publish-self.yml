@@ -21,7 +21,7 @@ jobs:
       - uses: actions/checkout@v3
       - run: |-
           set -e
-          if [ "${{ inputs.scope }}" == "" ] ;then INPUTS__SCOPE=$(echo "${{ inputs.scope }}" | cut -d "/" -f 1) ;else INPUTS__SCOPE="${{ inputs.scope }}" ;fi
+          if [ "${{ inputs.scope }}" == "" ] ;then INPUTS__SCOPE=$(echo "$GITHUB_REPOSITORY" | cut -d "/" -f 1) ;else INPUTS__SCOPE="${{ inputs.scope }}" ;fi
           if test -f "${{ inputs.prepare }}" ;then echo execute ${{ inputs.prepare }} ;bash ${{ inputs.prepare }} "$INPUTS__SCOPE" "${{ inputs.token }}" ;fi
           helm dependency update ${{ inputs.path }}
           helm package ${{ inputs.path }}
