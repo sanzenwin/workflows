@@ -21,7 +21,8 @@ jobs:
       - uses: actions/checkout@v3
       - run: |-
           set -e
-          if test -f "${{ inputs.prepare }}" ;then echo execute ${{ inputs.prepare }} ;bash ${{ inputs.prepare }} "${{ inputs.scope }}" "${{ inputs.token }}" ;fi
+          if [ "${{ inputs.scope }}" == "" ] ;then INPUTS__SCOPE=$(echo "${{ inputs.scope }}" | cut -d "/" -f 1) ;else INPUTS__SCOPE="${{ inputs.scope }}" ;fi
+          if test -f "${{ inputs.prepare }}" ;then echo execute ${{ inputs.prepare }} ;bash ${{ inputs.prepare }} "$INPUTS__SCOPE" "${{ inputs.token }}" ;fi
           DOMAIN=$(echo "$GITHUB_SERVER_URL" | sed 's/^http\(\|s\):\/\///g')
           dekartifacts image login "$DOMAIN" "$GITHUB_ACTOR" "${{ inputs.token }}"    
           TARGET=$(cat ${{ inputs.path }}/dest.docker)
