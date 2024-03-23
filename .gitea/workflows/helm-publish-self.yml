@@ -24,12 +24,12 @@ jobs:
           export INPUTS__TOKEN=${{ inputs.token }}
           if [ "${{ inputs.scope }}" == "" ] ;then 
             export INPUTS__SCOPE=$(echo "$GITHUB_REPOSITORY" | cut -d "/" -f 1) 
-          ;else 
+          else 
             export INPUTS__SCOPE="${{ inputs.scope }}" 
-          ;fi
+          fi
           if test -f "${{ inputs.prepare }}" ;then 
             bash ${{ inputs.prepare }} 
-          ;fi
+          fi
           helm dependency update ${{ inputs.path }}
           helm package ${{ inputs.path }}
           for filename in ./*.tgz; do break; done;
