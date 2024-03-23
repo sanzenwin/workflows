@@ -5,7 +5,7 @@ on:
       scope:
         required: false
         type: string
-      scope_pypi:
+      scope_package:
         required: false
         type: string
       token:
@@ -25,7 +25,7 @@ jobs:
       - run: |-
           set -e
           export INPUTS__TOKEN=${{ inputs.token }}
-          export INPUTS__SCOPE_PYPI=${{ inputs.scope_pypi }}
+          export INPUTS__SCOPE_PACKAGE=${{ inputs.scope_package }}
           if [ "${{ inputs.scope }}" == "" ] ;then 
             export INPUTS__SCOPE=$(echo "$GITHUB_REPOSITORY" | cut -d "/" -f 1) 
           ;else 
