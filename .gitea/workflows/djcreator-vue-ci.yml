@@ -3,7 +3,10 @@ on:
   workflow_call:
     inputs:
       scope:
-        required: true
+        required: false
+        type: string
+      scope_package:
+        required: false
         type: string
       token:
         required: true
@@ -20,7 +23,13 @@ jobs:
       - uses: actions/checkout@v3
         with:
           path: code
-      - run: bash ./deploy/shell/ci.sh
-        env:
-          INPUTS__SCOPE: ${{ inputs.scope }}
-          INPUTS__TOKEN: ${{ inputs.token }}
+      - run: |-
+          set -e
+          export INPUTS__TOKEN=${{ inputs.token }}
+          export INPUTS__SCOPE_PACKAGE=${{ inputs.scope_package }}
+          if [ "${{ inputs.scope }}" == "" ] ;then 
+            export INPUTS__SCOPE=$(echo "$GITHUB_REPOSITORY" | cut -d "/" -f 1) 
+          else 
+            export INPUTS__SCOPE="${{ inputs.scope }}" 
+          fi
+          bash ./deploy/shell/ci.sh
