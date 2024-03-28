@@ -21,12 +21,14 @@ jobs:
     - uses: pypa/gh-action-pypi-publish@release/v1
       with:
         verbose: true
+        skip-existing: true
         repository-url: ${{ secrets.registry || secrets.SELFHOSTED_REGISTRY || 'https://deksep-pypi.pkg.coding.net/common/pypi' }}
         user: ${{ secrets.username || secrets.SELFHOSTED_USERNAME }}
         password: ${{ secrets.password || secrets.SELFHOSTED_PASSWORD }}
     - uses: pypa/gh-action-pypi-publish@release/v1
       with:
         verbose: true
+        skip-existing: true
         repository-url: https://upload.pypi.org/legacy
         user: __token__
         password: ${{ secrets.PYPI_TOKEN }}
