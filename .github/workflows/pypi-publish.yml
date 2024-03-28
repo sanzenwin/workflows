@@ -1,15 +1,12 @@
 name: ~python3 publish
 on:
   workflow_call:
-    inputs:
+    secrets:
       registry:
         required: false
-        type: string
-      user:
+      username:
         required: false
-        type: string
-    secrets:
-      token:
+      password:
         required: false
 jobs:
   publish:
@@ -24,6 +21,12 @@ jobs:
     - uses: pypa/gh-action-pypi-publish@release/v1
       with:
         verbose: true
-        repository-url: ${{ inputs.registry || 'https://upload.pypi.org/legacy/' }}
-        user: ${{ inputs.user || '__token__' }}
-        password: ${{ secrets.token || secrets.PYPI_TOKEN }}
+        repository-url: ${{ secrets.registry || 'https://deksep-pypi.pkg.coding.net/common/pypi' }}
+        user: ${{ secrets.username || secrets.SELFHOSTED_USERNAME }}
+        password: ${{ secrets.password || secrets.SELFHOSTED_PASSWORD }}
+    - uses: pypa/gh-action-pypi-publish@release/v1
+      with:
+        verbose: true
+        repository-url: https://upload.pypi.org/legacy
+        user: __token__
+        password: ${{ secrets.PYPI_TOKEN }}
