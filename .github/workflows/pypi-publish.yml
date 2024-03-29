@@ -29,6 +29,6 @@ jobs:
       with:
         verbose: true
         skip-existing: true
-        repository-url: https://upload.pypi.org/legacy
+        repository-url: https://upload.pypi.org/legacy/
         user: __token__
         password: ${{ secrets.PYPI_TOKEN }}
