@@ -1,0 +1,36 @@
+name: ~ci
+on:
+  workflow_call:
+    inputs:
+      scope:
+        required: false
+        type: string
+      scope_package:
+        required: false
+        type: string
+      token:
+        required: true
+        type: string
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          repository: pypi/dekspider
+          token: ${{ inputs.token }}
+          path: dekspider
+      - uses: actions/checkout@v3
+        with:
+          path: code
+      - run: |-
+          set -e
+          export INPUTS__TOKEN=${{ inputs.token }}
+          export INPUTS__SCOPE_PACKAGE=${{ inputs.scope_package }}
+          if [ "${{ inputs.scope }}" == "" ] ;then 
+            export INPUTS__SCOPE=$(echo "$GITHUB_REPOSITORY" | cut -d "/" -f 1) 
+          else 
+            export INPUTS__SCOPE="${{ inputs.scope }}" 
+          fi
+          git -C ./build checkout $(git -C ./build describe --tags --all)
+          bash ./build/.project/main.sh

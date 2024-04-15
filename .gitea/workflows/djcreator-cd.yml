@@ -1,0 +1,27 @@
+name: ~cd
+on:
+  workflow_call:
+    inputs:
+      scope:
+        required: true
+        type: string
+      token:
+        required: true
+        type: string
+      environment:
+        required: true
+        type: string
+jobs:
+  cd:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          repository: pypi/djcreator
+          token: ${{ inputs.token }}
+          path: deploy
+      - run: bash ./deploy/.cd/main.sh
+        env:
+          INPUTS__SCOPE: ${{ inputs.scope }}
+          INPUTS__TOKEN: ${{ inputs.token }}
+          INPUTS__ENVIRONMENT: ${{ inputs.environment }}

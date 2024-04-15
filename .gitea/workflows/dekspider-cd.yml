@@ -17,10 +17,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          repository: deploy/djcreator-vue
+          repository: pypi/dekspider
           token: ${{ inputs.token }}
           path: deploy
-      - run: bash ./deploy/shell/cd.sh
+      - run: bash ./deploy/.cd/scrapyd.sh
         env:
           INPUTS__SCOPE: ${{ inputs.scope }}
           INPUTS__TOKEN: ${{ inputs.token }}

@@ -17,9 +17,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          repository: deploy/djcreator-vue
+          repository: pypi/djcreator
           token: ${{ inputs.token }}
-          path: deploy
+          path: build
       - uses: actions/checkout@v3
         with:
           path: code
@@ -32,4 +32,5 @@ jobs:
           else 
             export INPUTS__SCOPE="${{ inputs.scope }}" 
           fi
-          bash ./deploy/shell/ci.sh
+          git -C ./build checkout $(git -C ./build describe --tags --all)
+          bash ./build/.project/main.sh
