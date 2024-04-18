@@ -19,7 +19,7 @@ jobs:
         with:
           repository: pypi/dekspider
           token: ${{ inputs.token }}
-          path: dekspider
+          path: build
       - uses: actions/checkout@v3
         with:
           path: code
