@@ -8,6 +8,10 @@ on:
       scope_package:
         required: false
         type: string
+      scope_creator:
+        required: false
+        type: string
+        default: pypi
       token:
         required: true
         type: string
@@ -20,11 +24,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          repository: pypi/dekspider
+          repository: ${{ inputs.scope_creator }}/dekspider
           token: ${{ inputs.token }}
           path: deploy
       - run: |-
           set -e
+          export INPUTS__SCOPE_CREATOR=${{ inputs.scope_creator }}
           export INPUTS__ENVIRONMENT=${{ inputs.environment }}
           export INPUTS__TOKEN=${{ inputs.token }}
           export INPUTS__SCOPE_PACKAGE=${{ inputs.scope_package }}
