@@ -25,6 +25,7 @@ jobs:
         npm install -g pnpm
         python3 -m pip install deknp
         deknp sure
+        pnpm run build
         npm publish --access=public
       env:
         NODE_AUTH_TOKEN: ${{ secrets.token || secrets.NPM_TOKEN }}
