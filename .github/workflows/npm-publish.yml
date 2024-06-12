@@ -17,14 +17,12 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - uses: actions/setup-node@v3
-      with:
-        registry-url: ${{ inputs.registry || 'https://registry.npmjs.org' }}
-        scope: "@${{ inputs.scope || secrets.NPM_SCOPE || env.GITHUB_ACTOR }}"
     - run: |-
         set -e
         npm install -g pnpm
         python3 -m pip install deknp
         deknp sure
-        npm publish
-      env:
-        NODE_AUTH_TOKEN: ${{ secrets.token || secrets.NPM_TOKEN }}
+    - uses: JS-DevTools/npm-publish@v3
+      with:
+        token: ${{ secrets.token || secrets.NPM_TOKEN }}
+        registry: ${{ inputs.registry || 'https://registry.npmjs.org' }}
