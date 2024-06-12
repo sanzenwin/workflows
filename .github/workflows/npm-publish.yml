@@ -19,7 +19,7 @@ jobs:
     - uses: actions/setup-node@v3
       with:
         registry-url: ${{ inputs.registry || 'https://registry.npmjs.org' }}
-        scope: "@${{ inputs.scope || env.GITHUB_ACTOR }}"
+        scope: "@${{ inputs.scope || secrets.NPM_SCOPE || env.GITHUB_ACTOR }}"
     - run: |-
         set -e
         npm install -g pnpm
