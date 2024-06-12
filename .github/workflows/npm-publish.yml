@@ -24,7 +24,6 @@ jobs:
         npm install -g pnpm
         python3 -m pip install deknp
         deknp sure
-        npm init --scope=@${{ inputs.scope || secrets.NPM_SCOPE || env.GITHUB_ACTOR }}
         npm publish --access public
       env:
         NODE_AUTH_TOKEN: ${{ secrets.token || secrets.NPM_TOKEN }}
