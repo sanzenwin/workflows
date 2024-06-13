@@ -24,7 +24,7 @@ jobs:
         set -e
         npm install -g pnpm
         python3 -m pip install deknp
-        deknp sure
+        deknp install
         pnpm run build
         npm publish --access=public
       env:
