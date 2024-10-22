@@ -18,10 +18,7 @@ jobs:
           python-version: '${{ inputs.python_version }}'
       - run: python3 -m pip install -U wheel setuptools twine
       - run: python setup.py bdist_wheel --plat-name=${{ inputs.plat_name }}
-      - uses: pypa/gh-action-pypi-publish@release/v1
-        with:
-          verbose: true
-          skip-existing: true
-          repository-url: ${{ secrets.registry || secrets.SELFHOSTED_REGISTRY || 'https://deksep-pypi.pkg.coding.net/common/pypi' }}
-          user: ${{ secrets.username || secrets.SELFHOSTED_USERNAME }}
-          password: ${{ secrets.password || secrets.SELFHOSTED_PASSWORD }}
+      - run: twine upload dist/*.whl --skip-existing --verbose --repository-url ${{ secrets.registry || secrets.SELFHOSTED_REGISTRY || 'https://deksep-pypi.pkg.coding.net/common/pypi' }}
+        env:
+          TWINE_USERNAME: ${{ secrets.username || secrets.SELFHOSTED_USERNAME }}
+          TWINE_PASSWORD: ${{ secrets.password || secrets.SELFHOSTED_PASSWORD }}
