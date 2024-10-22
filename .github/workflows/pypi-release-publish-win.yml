@@ -1,0 +1,29 @@
+name: ~python3 release publish for windows
+on:
+  workflow_call:
+    inputs:
+      python_version:
+        required: true
+        type: string
+        default: "3.10"
+      plat_name:
+        required: true
+        type: string
+        default: "win-amd64"
+jobs:
+  publish-self:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '${{ inputs.python_version }}'
+      - run: python3 -m pip install -U wheel setuptools twine
+      - run: python setup.py bdist_wheel --plat-name=${{ inputs.plat_name }}
+      - uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          verbose: true
+          skip-existing: true
+          repository-url: ${{ secrets.registry || secrets.SELFHOSTED_REGISTRY || 'https://deksep-pypi.pkg.coding.net/common/pypi' }}
+          user: ${{ secrets.username || secrets.SELFHOSTED_USERNAME }}
+          password: ${{ secrets.password || secrets.SELFHOSTED_PASSWORD }}
