@@ -2,15 +2,18 @@ name: ~python3 release publish for windows
 on:
   workflow_call:
     inputs:
+      os:
+        type: string
+        default: "windows-latest" # ubuntu-latest windows-latest macos-latest
       python_version:
         type: string
         default: "3.10"
       plat_name:
         type: string
-        default: "win-amd64"
+        default: "win-amd64" # https://pypi.org/project/torch/#files
 jobs:
   publish-self:
-    runs-on: windows-latest
+    runs-on: ${{ inputs.os }}
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
