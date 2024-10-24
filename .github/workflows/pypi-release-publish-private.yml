@@ -11,6 +11,9 @@ on:
       plat_name:
         type: string
         default: "win-amd64" # https://pypi.org/project/torch/#files
+      skip_existing:
+        type: string
+        default: "true"
 jobs:
   publish-self:
     runs-on: ${{ inputs.os }}
@@ -20,8 +23,8 @@ jobs:
         with:
           python-version: '${{ inputs.python_version }}'
       - run: python3 -m pip install -U wheel setuptools twine
-      - run: python setup.py bdist_wheel --plat-name=${{ inputs.plat_name }}
-      - run: twine upload dist/*.whl --skip-existing --verbose --repository-url ${{ secrets.registry || secrets.SELFHOSTED_REGISTRY || 'https://deksep-pypi.pkg.coding.net/common/pypi' }}
+      - run: python setup.py bdist_wheel --plat-name=${{ inputs.plat_name && format('--plat-name={0}', inputs.plat_name) || '' }}
+      - run: twine upload dist/*.whl ${{ inputs.skip_existing == 'true' && '--skip-existing' || '' }} --verbose --repository-url ${{ secrets.registry || secrets.SELFHOSTED_REGISTRY || 'https://deksep-pypi.pkg.coding.net/common/pypi' }}
         env:
           TWINE_USERNAME: ${{ secrets.username || secrets.SELFHOSTED_USERNAME }}
           TWINE_PASSWORD: ${{ secrets.password || secrets.SELFHOSTED_PASSWORD }}
