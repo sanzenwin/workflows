@@ -18,6 +18,10 @@ jobs:
           pdm config pypi.${{ inputs.scope }}.verify_ssl true
           pdm config pypi.${{ inputs.scope }}.username "${{ env.GITHUB_ACTOR }}"
           pdm config pypi.${{ inputs.scope }}.password "${{ inputs.token }}"
+      - run: |-
+          if test -f "pyproject.py" ;then 
+            python pyproject.py build
+          fi
       - run: pdm build
       - run: twine upload dist/*.whl --skip-existing --verbose --repository-url ${{ env.GITHUB_SERVER_URL }}/api/packages/${{ inputs.scope }}/pypi/
         env:
