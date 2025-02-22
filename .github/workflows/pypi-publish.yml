@@ -17,6 +17,10 @@ jobs:
         python-version: 3
     - uses: pdm-project/setup-pdm@v3
     - uses: actions/checkout@v3
+    - run: |-
+        if test -f "pyproject.py" ;then 
+          python pyproject.py build
+        fi
     - run: pdm build
     - uses: pypa/gh-action-pypi-publish@release/v1
       with:
