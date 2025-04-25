@@ -21,7 +21,7 @@ jobs:
         if test -f "pyproject.py" ;then 
           python pyproject.py build
         fi
-    - run: pdm build
+    - run: pdm build && rm dist/*.tar.gz
     - uses: pypa/gh-action-pypi-publish@release/v1
       with:
         verbose: true
