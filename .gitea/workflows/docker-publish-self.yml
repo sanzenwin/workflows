@@ -31,11 +31,13 @@ jobs:
           else 
             export INPUTS__SCOPE="${{ inputs.scope }}" 
           fi
+          DOMAIN=$(echo "$GITHUB_SERVER_URL" | sed 's/^http\(\|s\):\/\///g')
+          dekartifacts image login "$DOMAIN" "$GITHUB_ACTOR" "$INPUTS__TOKEN"    
+          
           if test -f "${{ inputs.prepare }}" ;then 
             bash ${{ inputs.prepare }} 
           fi
-          DOMAIN=$(echo "$GITHUB_SERVER_URL" | sed 's/^http\(\|s\):\/\///g')
-          dekartifacts image login "$DOMAIN" "$GITHUB_ACTOR" "$INPUTS__TOKEN"    
+          
           TARGET=$(cat ${{ inputs.path }}/dest.docker)
           docker build --no-cache -t $TARGET ${{ inputs.path }}
           docker push $TARGET
