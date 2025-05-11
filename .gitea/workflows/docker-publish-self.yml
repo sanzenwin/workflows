@@ -40,4 +40,4 @@ jobs:
           
           TARGET=$(cat ${{ inputs.path }}/dest.docker)
           docker build --no-cache -t $TARGET ${{ inputs.path }}
-          docker push $TARGET
+          dektools cmd retry docker push $TARGET
