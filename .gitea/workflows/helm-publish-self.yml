@@ -22,6 +22,7 @@ jobs:
       - run: |-
           set -e
           export INPUTS__TOKEN=${{ inputs.token }}
+          export INPUTS__SCOPE_PACKAGE=${{ inputs.scope_package }}
           if [ "${{ inputs.scope }}" == "" ] ;then 
             export INPUTS__SCOPE=$(echo "$GITHUB_REPOSITORY" | cut -d "/" -f 1) 
           else 
