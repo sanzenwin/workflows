@@ -37,5 +37,9 @@ jobs:
           else 
             export INPUTS__SCOPE="${{ inputs.scope }}" 
           fi
+          
+          DOMAIN=$(echo "$GITHUB_SERVER_URL" | sed 's/^http\(\|s\):\/\///g')
+          dekartifacts image login "$DOMAIN" "$GITHUB_ACTOR" "$INPUTS__TOKEN"    
+          
           git -C ./build checkout $(git -C ./build describe --tags --all)
           bash ./build/.project/main.sh
