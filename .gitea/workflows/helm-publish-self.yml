@@ -5,6 +5,9 @@ on:
       scope:
         required: false
         type: string
+      scope_package:
+        required: false
+        type: string
       token:
         required: true
         type: string
