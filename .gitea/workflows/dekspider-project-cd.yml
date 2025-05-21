@@ -38,5 +38,11 @@ jobs:
           else 
             export INPUTS__SCOPE="${{ inputs.scope }}" 
           fi
+
           git -C ./deploy checkout $(git -C ./deploy describe --tags --all)
-          bash ./deploy/.cd/project.sh
+
+          if test -f "./deploy/.cd/project.sh" ;then 
+            bash ./deploy/.cd/project.sh
+          elif test -f "./deploy/.cd/project.pysh" ;then 
+            dekshell rf ./deploy/.cd/project.pysh
+          fi

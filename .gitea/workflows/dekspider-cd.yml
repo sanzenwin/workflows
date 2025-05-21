@@ -33,5 +33,11 @@ jobs:
           else 
             export INPUTS__SCOPE="${{ inputs.scope }}" 
           fi
+
           git -C ./deploy checkout $(git -C ./deploy describe --tags --all)
-          bash ./deploy/.cd/scrapyd.sh
+
+          if test -f "./deploy/.cd/scrapyd.sh" ;then 
+            bash ./deploy/.cd/scrapyd.sh
+          elif test -f "./deploy/.cd/scrapyd.pysh" ;then 
+            dekshell rf ./deploy/.cd/scrapyd.pysh
+          fi

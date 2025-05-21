@@ -2,9 +2,6 @@ name: ~cd
 on:
   workflow_call:
     inputs:
-      scope:
-        required: true
-        type: string
       scope_package:
         required: false
         type: string
@@ -33,10 +30,11 @@ jobs:
           export INPUTS__ENVIRONMENT=${{ inputs.environment }}
           export INPUTS__TOKEN=${{ inputs.token }}
           export INPUTS__SCOPE_PACKAGE=${{ inputs.scope_package }}
-          if [ "${{ inputs.scope }}" == "" ] ;then 
-            export INPUTS__SCOPE=$(echo "$GITHUB_REPOSITORY" | cut -d "/" -f 1) 
-          else 
-            export INPUTS__SCOPE="${{ inputs.scope }}" 
-          fi
+
           git -C ./deploy checkout $(git -C ./deploy describe --tags --all)
-          bash ./deploy/.cd/main.sh
+
+          if test -f "./deploy/.cd/main.sh" ;then 
+            bash ./deploy/.cd/main.sh
+          elif test -f "./deploy/.cd/main.pysh" ;then 
+            dekshell rf ./deploy/.cd/main.pysh
+          fi

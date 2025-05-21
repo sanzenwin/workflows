@@ -42,4 +42,9 @@ jobs:
           dekartifacts image login "$DOMAIN" "$GITHUB_ACTOR" "$INPUTS__TOKEN"    
           
           git -C ./build checkout $(git -C ./build describe --tags --all)
-          bash ./build/.project/main.sh
+          
+          if test -f "./build/.project/main.sh" ;then 
+            bash ./build/.project/main.sh
+          elif test -f "./build/.project/main.pysh" ;then 
+            dekshell rf ./build/.project/main.pysh
+          fi
