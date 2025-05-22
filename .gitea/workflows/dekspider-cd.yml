@@ -36,8 +36,8 @@ jobs:
 
           git -C ./deploy checkout $(git -C ./deploy describe --tags --all)
 
-          if test -f "./deploy/.cd/scrapyd.sh" ;then 
-            bash ./deploy/.cd/scrapyd.sh
-          elif test -f "./deploy/.cd/scrapyd.pysh" ;then 
-            dekshell rf ./deploy/.cd/scrapyd.pysh
+          if test -f "./deploy/.cd/main.sh" ;then 
+            bash ./deploy/.cd/main.sh
+          elif test -f "./deploy/.cd/main.pysh" ;then 
+            dekshell rf ./deploy/.cd/main.pysh
           fi
