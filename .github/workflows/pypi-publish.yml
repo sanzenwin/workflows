@@ -18,6 +18,9 @@ jobs:
     - uses: pdm-project/setup-pdm@v3
     - uses: actions/checkout@v3
     - run: |-
+        if test -f "pyproject.req" ;then 
+          python -m pip install -r pyproject.req
+        fi
         if test -f "pyproject.py" ;then 
           python pyproject.py build
         fi

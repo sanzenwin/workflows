@@ -19,6 +19,9 @@ jobs:
           pdm config pypi.${{ inputs.scope }}.username "${{ env.GITHUB_ACTOR }}"
           pdm config pypi.${{ inputs.scope }}.password "${{ inputs.token }}"
       - run: |-
+          if test -f "pyproject.req" ;then 
+            python -m pip install -r pyproject.req
+          fi
           if test -f "pyproject.py" ;then 
             python pyproject.py build
           fi
