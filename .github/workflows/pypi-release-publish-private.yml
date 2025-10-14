@@ -24,7 +24,7 @@ jobs:
           python-version: '${{ inputs.python_version }}'
       - run: python3 -m pip install -U wheel setuptools twine
       - run: python setup.py bdist_wheel ${{ inputs.plat_name && format('--plat-name={0}', inputs.plat_name) || '' }}
-      - run: twine upload dist/*.whl ${{ inputs.skip_existing == 'true' && '--skip-existing' || '' }} --verbose --repository-url ${{ secrets.registry || secrets.SELFHOSTED_REGISTRY || 'https://deksep-pypi.pkg.coding.net/common/pypi' }}
+      - run: twine upload dist/*.whl ${{ inputs.skip_existing == 'true' && '--skip-existing' || '' }} --verbose --repository-url ${{ secrets.registry || secrets.SELFHOSTED_REGISTRY || 'https://pypi.cnb.cool/deksep/common/-/packages/simple' }}
         env:
           TWINE_USERNAME: ${{ secrets.username || secrets.SELFHOSTED_USERNAME }}
           TWINE_PASSWORD: ${{ secrets.password || secrets.SELFHOSTED_PASSWORD }}
