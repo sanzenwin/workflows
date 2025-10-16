@@ -29,7 +29,7 @@ jobs:
       with:
         verbose: true
         skip-existing: true
-        repository-url: ${{ secrets.registry || secrets.SELFHOSTED_REGISTRY || 'https://pypi.cnb.cool/deksep/common/-/packages/simple' }}
+        repository-url: ${{ secrets.registry || secrets.SELFHOSTED_REGISTRY || 'https://pypi.cnb.cool/deksep/pypi-common/-/packages/simple' }}
         user: ${{ secrets.username || secrets.SELFHOSTED_USERNAME }}
         password: ${{ secrets.password || secrets.SELFHOSTED_PASSWORD }}
     - uses: pypa/gh-action-pypi-publish@release/v1
